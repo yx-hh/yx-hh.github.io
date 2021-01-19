@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Estella">
+
+
+
+
+
+<title>类装载器ClassLoader简介 | Estella</title>
+
+
+
+    <link rel="icon" href="/image/flower.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.1.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Estella&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Estella&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">类装载器ClassLoader简介</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Estella</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">January 19, 2021&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Java/">Java</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>1.类装载器的工作机制</p>
+<p>类装载器就是寻找类的字节码文件，并构造出类在JVM内部表示对象的组件。在Java中，类装载器把一个类装入JVM中，需要经过以下步骤：</p>
+<p>（1）装载：查找和导入Class文件。</p>
+<p>（2）链接：执行校验、准备和解析步骤，其中解析步骤是可以选择的。</p>
+<p>a.校验：检查载入Class文件数据的正确性。</p>
+<p>b.准备：给类的静态变量分配存储空间。</p>
+<p>c.解析：将符号引用转换成直接引用。</p>
+<p>（3）初始化：对类的静态变量、静态代码块执行初始化工作</p>
+<p>​    类装载工作由ClassLoader及其子类负责。ClassLoader是一个重要的Java运行时系统组件，它负责在运行时查找和装入Class字节码文件。JVM在运行时会产生3个ClassLoader：根装载器、ExtClassLoader(扩展类装载器)和APPClassLoader(应用类装载器)。其中根装载器不是ClassLoader的子类，它使用C++语言编写，因而在Java中看不到它，根装载器负责装载JRE的核心类库，如JRE目标下的rt.jar、charset.jar等。ExtClassLoader和AppClassLoader都是ClassLoader的子类，其中ExtClassLoader负责装载JRE拓展目录ext中的JAR类包；AppClassLoader负责装载Classpath路径下的类包。</p>
+<p>​    这三个类装载器之间存在父子层级关系，即根装载器是ExtClassLoader的父装载器，ExtClassLoader是AppClassLoader的父装载器。在默认情况下，使用AppClassLoader装载应用程序的类。我们可以做一个实验：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package io.github.estellahuang.crm.controller;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * @author Huang Yuxin</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class Test &#123;</span><br><span class="line">    public static void main(String[] args)&#123;</span><br><span class="line">       ClassLoader loader &#x3D; Thread.currentThread().getContextClassLoader();</span><br><span class="line">        System.out.println(&quot;current loader:&quot;+loader);</span><br><span class="line">        System.out.println(&quot;parent loader:&quot;+loader.getParent());</span><br><span class="line">        System.out.println(&quot;grandparent loader:&quot;+loader.getParent().getParent());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    运行结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">current loader:sun.misc.Launcher$AppClassLoader@18b4aac2</span><br><span class="line">parent loader:sun.misc.Launcher$ExtClassLoader@cc34f4d</span><br><span class="line">grandparent loader:null</span><br></pre></td></tr></table></figure>
+
+<p><strong>根装载器在Java中访问不到，所以返回null；</strong></p>
+<p>通过以上输出信息，我们知道这三个装载器之间的继承关系是：</p>
+<p><strong>根装载器&gt; ExtClassLoader&gt; AppClassLoader</strong></p>
+<p>​    JVM装载类时使用“全盘负责委托机制”，“全盘负责”是指当一个ClassLoader装载一个类时，除非显示地使用另一ClassLoader，该类所依赖及引用的类也由这个ClassLoader载入；“委托机制”是指先委托父装载器寻找目标类，只有在找不到的情况下才从自己的类路径中查找并装载目标类。这一点是从安全角度考虑的，试想，如果有人编写了一个恶意的基础类（如java.lang.String）并装载到JVM中，将会引起多么可怕的后果？但是由于有了“全盘负责委托机制”，java.lang.String永远是由根装载器来装载的，这样就避免了上述安全隐患的发生。</p>
+<p>2.ClassLoader的重要方法</p>
+<p>在Java中，ClassLoader是一个抽象类，位于java.lang包中。下面对该类的一些重要接口方法进行了介绍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public Class&lt;?&gt; loadClass(String name) throws ClassNotFoundException &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>name参数指定装载器需要装载类的名字，必须使用全限定类名，如io.estrellahuang.readinglist.book。该方法有一个重载方法loadClass(name, boolean resolve)，resolve参数告诉类装载器是否需要解析该类。在初始化类之前，应考虑进行类解析的工作，但并不是所有的类都需要解析。如果JVM只需要知道该类是否存在或找出该类的超类，就不需要进行解析。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">protected final Class&lt;?&gt; defineClass(String name, byte[] b, int off, int len)</span><br><span class="line">        throws ClassFormatError&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将类文件的字节数组转换成JVM内部的java.lang.Class对象。字节数组可以从本地文件系统、远程网络获取。参数name为字节数组对应的全限定类名。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected final Class&lt;?&gt; findSystemClass(String name) throws ClassNotFoundException&#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从本地文件系统载入Class文件。如果本地文件系统不存在该Class文件，则将抛出ClassNotFoundException异常。该方法是JVM默认使用的装载机制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected final Class&lt;?&gt; findLoadedClass(String name) &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用该方法来查看ClassLoader是否已装入某个类。如果已装入，那么返回java.lang.Class对象；否则返回null。如果强行装载已存在的类，那么将会抛出链接错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public final ClassLoader getParent() &#123;...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取类装载器的父装载器。除根装载器外，所有的类装载器都有且仅有一个父装载器。ExtClassLoader的父装载器是根装载器，因为根装载器非java语言编写，所以无法获得，将返回null；</p>
+<p>除JVM默认的3个ClassLoader外，用户可以编写自己的第三方类装载器，以实现一些特殊的需求。类文件被装载并解析后，在JVM内将拥有一个对应的java.lang.Class类描述对象，该类的实例都拥有只想这个类描述对象的引用，而类描述对象又拥有指向关联ClassLoader的引用。</p>
+<p><img src="https://estrella-1253657101.cos.ap-shanghai.myqcloud.com/Java/objectClassJVM.png" alt="image-20190113224731361"></p>
+<p>每个类在JVM中都拥有一个对应的java.lang.Class对象，它提供了类结构信息的描述。数组、枚举、注解及基本Java类型（int、double等），甚至void都拥有对应的Class对象。Class没有public 的构造方法。Class对象是在装载类时由JVM通过调用类装载器中的defineClass()方法自动构造的。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Estella</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://yoursite.com/2021/01/19/%E7%B1%BB%E8%A3%85%E8%BD%BD%E5%99%A8ClassLoader/">http://yoursite.com/2021/01/19/%E7%B1%BB%E8%A3%85%E8%BD%BD%E5%99%A8ClassLoader/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+                     <p class="copyright-item">
+                         <span>Slogan:</span>
+                         <span>Do you believe in <strong>DESTINY</strong>?</span>
+                     </p>
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Java/"># Java</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Estella | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
