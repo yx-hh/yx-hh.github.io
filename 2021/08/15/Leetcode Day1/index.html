@@ -198,7 +198,8 @@
         </header>
 
         <div class="post-content">
-            <h2 id="LeetCode-20"><a href="#LeetCode-20" class="headerlink" title="LeetCode 20"></a>LeetCode 20</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-parentheses/">20.Valid Parentheses</a></p>
+            <p>打卡简单的栈和队列算法</p>
+<h2 id="LeetCode-20"><a href="#LeetCode-20" class="headerlink" title="LeetCode 20"></a>LeetCode 20</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/valid-parentheses/">20.Valid Parentheses</a></p>
 <p>符号匹配，问题分析<code>&#39;(&#39;</code>, <code>&#39;)&#39;</code>, <code>&#39;&#123;&#39;</code>, <code>&#39;&#125;&#39;</code>, <code>&#39;[&#39;</code> and <code>&#39;]&#39;</code>这三类括号匹配以相同类型和正确的顺序括号结束。我知道的解法有2种：</p>
 <h3 id="Solution-1"><a href="#Solution-1" class="headerlink" title="Solution 1"></a>Solution 1</h3><p>1、使用栈FILO的特性，将左括号放入栈中，遇到右括号从栈中取数据，判断是否匹配：</p>
 <p>巧思：map固定住了括号之间的匹配关系; </p>
@@ -216,7 +217,7 @@
 <h2 id="Leetcode-232"><a href="#Leetcode-232" class="headerlink" title="Leetcode 232"></a>Leetcode 232</h2><p><a target="_blank" rel="noopener" href="https://leetcode.com/problems/implement-queue-using-stacks/">232. Implement Queue using Stacks</a></p>
 <p>栈转队列(use stacks implement queue): FILO –&gt; FIFO</p>
 <p>都是使用两个栈，但有两种思路，官方的solution里面有图助于理解，🔗上方👆自取获得：</p>
-<h3 id="solution-1"><a href="#solution-1" class="headerlink" title="solution 1"></a>solution 1</h3><p>思路一(个人推荐)：一个栈负责入，一个栈负责出；所有进入队列的元素进入入栈，需要取的时候从出栈取，规则为：input stack pop出元素依次push到 output stack。如input stack中的数据为3-&gt;2-&gt;1, 依次push到output stack中则为1-&gt;2-&gt;3。output stack中有元素时操作Custom Queue取数据先pop output stack，为空后才能从input stack中push数据进来，再执行队列其他操作。</p>
+<h3 id="Solution-1-1"><a href="#Solution-1-1" class="headerlink" title="Solution 1"></a>Solution 1</h3><p>思路一(个人推荐)：一个栈负责入，一个栈负责出；所有进入队列的元素进入入栈，需要取的时候从出栈取，规则为：input stack pop出元素依次push到 output stack。如input stack中的数据为3-&gt;2-&gt;1, 依次push到output stack中则为1-&gt;2-&gt;3。output stack中有元素时操作Custom Queue取数据先pop output stack，为空后才能从input stack中push数据进来，再执行队列其他操作。</p>
 <p>faster than 100%; Memory Usage: 36.8 MB, less than 32.98% of Java online submissions for Implement Queue using Stacks.</p>
 <p>Time Complexity: push O(1), pop/peek O(n), empty O(1)</p>
 <p>Space Complexity: O(n)</p>
@@ -224,7 +225,7 @@
 
 
 
-<h3 id="solution-2"><a href="#solution-2" class="headerlink" title="solution 2"></a>solution 2</h3><p>思路二：一个栈作为中转站，一个作为最终数据存储区（类似于罗汉塔，小的环只能在大环上面👆）</p>
+<h3 id="Solution-2-1"><a href="#Solution-2-1" class="headerlink" title="Solution 2"></a>Solution 2</h3><p>思路二：一个栈作为中转站，一个作为最终数据存储区（类似于罗汉塔，小的环只能在大环上面👆）</p>
 <p>faster than 100%;Memory Usage: 36.8 MB, less than 76.39% of Java online submissions for Implement Queue using Stacks.</p>
 <p>Time Complexity: push O(n), pop/peek O(1), empty O(1)</p>
 <p>Space Complexity: O(n)</p>
@@ -244,7 +245,7 @@
 
 
 
-<h3 id="Solution-2-1"><a href="#Solution-2-1" class="headerlink" title="Solution 2"></a>Solution 2</h3><p>思路：使用两个队列，队列q1存放处理好的老数据，q2负责存放新入数据；将q1中的数据依次存放到q2中，交换引用地址，则q1中的数据是又变成处理好的数据了，如此往复即可。</p>
+<h3 id="Solution-2-2"><a href="#Solution-2-2" class="headerlink" title="Solution 2"></a>Solution 2</h3><p>思路：使用两个队列，队列q1存放处理好的老数据，q2负责存放新入数据；将q1中的数据依次存放到q2中，交换引用地址，则q1中的数据是又变成处理好的数据了，如此往复即可。</p>
 <p>Runtime: 0 ms, faster than 100.00% of Java online submissions for Implement Stack using Queues.</p>
 <p>Memory Usage: 36.8 MB, less than 69.68% of Java online submissions for Implement Stack using Queues.</p>
 <p>Time Complexity: push O(n), peek/empty/top O(1)</p>
