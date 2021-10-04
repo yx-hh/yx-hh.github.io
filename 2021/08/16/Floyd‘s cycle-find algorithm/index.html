@@ -12,7 +12,7 @@
 
 
 
-<title>GitHub----Support for password authentication was removed on August 13, 2021. | Estella</title>
+<title>快慢指针算法/龟兔算法/Floyd&#39;s cycle-find algorithm | Estella</title>
 
 
 
@@ -173,7 +173,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">GitHub----Support for password authentication was removed on August 13, 2021.</h1>
+            <h1 class="post-title">快慢指针算法/龟兔算法/Floyd&#39;s cycle-find algorithm</h1>
             
                 <div class="post-meta">
                     
@@ -182,14 +182,14 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">August 13, 2021&nbsp;&nbsp;9:00:00</a>
+                        Date: <a href="#">August 16, 2021&nbsp;&nbsp;0:00:00</a>
                         </span>
                     
                     
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/Git/">Git</a>
+                                <a href="/categories/Common-Algorithm/">Common Algorithm</a>
                             
                         </span>
                     
@@ -198,34 +198,15 @@
         </header>
 
         <div class="post-content">
-            <h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>今天提交内容到GitHub的时候报了如下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.</span><br><span class="line">remote: Please see https:&#x2F;&#x2F;github.blog&#x2F;2020-12-15-token-authentication-requirements-for-git-operations&#x2F; for more information.</span><br><span class="line">fatal: unable to access &#39;https:&#x2F;&#x2F;github.com&#x2F;yx-hh&#x2F;yx-hh.github.io.git&#x2F;&#39;: The requested URL returned error: 403</span><br></pre></td></tr></table></figure>
-
-<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>如上面👆提示信息所诉，GitHub对密码验证的支持只到8月13日，后面需要使用个人访问token简称PAT。官方解释是更安全。</p>
-<p>之前提交时输入过用户名和密码，但是这种方式不支持了！</p>
-<p>是不是有点疑惑🤔，如何切换为token登入？</p>
-<h2 id="问题解决办法"><a href="#问题解决办法" class="headerlink" title="问题解决办法"></a>问题解决办法</h2><p>如果想通过Git连接到GitHub，有两种方式：HTTPS或者SSH认证。</p>
-<p>我之前使用的是HTTPS的方式，输入用户名和密码，git会根据我之前访问成功之后生成的证书继续访问。不成功就报错。</p>
-<h3 id="通过HTTPS连接"><a href="#通过HTTPS连接" class="headerlink" title="通过HTTPS连接"></a>通过HTTPS连接</h3><p>官网说明信息如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">When you git clone, git fetch, git pull, or git push to a remote repository using HTTPS URLs on the command line, Git will ask for your GitHub username and password. When Git prompts you for your password, enter your personal access token (PAT) instead. Password-based authentication for Git is deprecated, and using a PAT is more secure. For more information, see &quot;Creating a personal access token.&quot;</span><br></pre></td></tr></table></figure>
-
-<p>意思就是执行git操作的时候，会提示你填写GitHub用户名，你用个人token(PAT)替换密码就行，因为密码登入已经过时了。</p>
-<p>即：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;REMOTE_URL&gt; </span><br><span class="line">username: &lt;your GitHub username&gt;</span><br><span class="line">password: &lt;your PAT&gt;</span><br></pre></td></tr></table></figure>
-
-<p>现在还剩下两个问题：</p>
-<p>1、生成PAT</p>
-<p>生成方法，跟着官网一步步来，非常简单：<a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">link</a>。</p>
-<p>2、操作git时弹出输入用户名和密码的提示</p>
-<p>出现最开始提示语且没弹出让重新输入用户名和密码的原因是，（mac电脑举例）之前登入成功后MacOS已经帮你把生成的证书存入到它的钥匙串访问(Keychain Access)中了，需要删除原有的。两种删除操作的详情链接如下：<a target="_blank" rel="noopener" href="https://docs.github.com/en/get-started/getting-started-with-git/updating-credentials-from-the-macos-keychain">link</a>。</p>
-<p>方法一：在Keychain Access中搜索框中输入GitHub，把类型为Internet password的那一条数据删掉。再次操作git就会弹出输入用户名和密码的提示语了。</p>
-<p>方法二：通过命令行删， 操作成功不会打印任何信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git credential-osxkeychain erase</span><br><span class="line">host&#x3D;github.com</span><br><span class="line">protocol&#x3D;https</span><br><span class="line">&gt; [Press Return]</span><br></pre></td></tr></table></figure>
+            <h2 id="算法描述"><a href="#算法描述" class="headerlink" title="算法描述"></a>算法描述</h2><p>有两个指针，一个跑的快，一个跑得慢。在龟兔赛跑的寓言中，跑的快的称为 “乌龟”，跑得快的称为 “兔子”。不管乌龟和兔子在循环中从哪里开始，它们最终都会相遇。这是因为兔子每走一步就向乌龟靠近一个节点（在它们的移动方向上）。</p>
+<p>通过快慢指针则可以避免使用数据结构记忆，检测是否有循环，在求取最短路径也会使用。</p>
+<h2 id="算法模版"><a href="#算法模版" class="headerlink" title="算法模版"></a>算法模版</h2><p>代码中使用的是链表结构</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (fastNode &amp;&amp; fastNode.next()) &#123;</span><br><span class="line">    <span class="keyword">if</span> (fastNode.next() == slowNode || fastNode.next().next() == slowNode) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    fastNode = fastNode.next().next();</span><br><span class="line">    slowNode = slowNode.next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="通过SSH连接"><a href="#通过SSH连接" class="headerlink" title="通过SSH连接"></a>通过SSH连接</h3><p><a target="_blank" rel="noopener" href="https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh">link</a></p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://docs.github.com/en/get-started/quickstart/set-up-git#next-steps-authenticating-with-github-from-git">Authenticating with GitHub from Git</a></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/a13352912632/article/details/107754942">弗洛伊德循环查找算法(快慢指针法/龟兔指针法)</a></p>
+<p>ps: 这一点也可以通过玩轮滑验证，你和朋友去公园玩轮滑，环形滑道，一个滑的快，一个滑的慢，两人最终会相遇。</p>
 
         </div>
 
@@ -236,7 +217,7 @@
                 <span class="tag">
                     
                     
-                        <a href="/tags/Git/"># Git</a>
+                        <a href="/tags/tortoise-and-hare-algorithm/"># tortoise and hare algorithm</a>
                     
                         
                 </span>
@@ -249,10 +230,10 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2021/08/14/Leetcode1/">LeetCode 20、222、225</a>
+                <a class="prev" rel="prev" href="/2021/10/04/Java%20Comparable%20and%20Comparator/">Java Comparable & Comparator</a>
             
             
-            <a class="next" rel="next" href="/2021/01/18/%E6%9C%AC%E6%9C%BA%E8%AE%BF%E9%97%AEgithub%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE-MAC%E7%89%88/">本机访问github代理配置-MAC版</a>
+            <a class="next" rel="next" href="/2021/08/16/LeetCode2/">LeetCode 242</a>
             
         </section>
 
