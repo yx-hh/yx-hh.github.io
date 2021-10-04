@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Estella">
+
+
+
+
+
+<title>Java Comparable &amp; Comparator | Estella</title>
+
+
+
+    <link rel="icon" href="/image/flower.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.1.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Estella&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Estella&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Java Comparable &amp; Comparator</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Estella</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">October 4, 2021&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/Java/">Java</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>Java provides two methods for sorting elements in a collection or array, one is to implement the Comparable interface, and the other is to implement th</p>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>package</th>
+<th>method</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Comparable&lt;T&gt;</td>
+<td>java.lang</td>
+<td>public int compareTo(T o);</td>
+</tr>
+<tr>
+<td>Comparator&lt;T&gt;</td>
+<td>java.util</td>
+<td>int compare(T o1, T o2);</td>
+</tr>
+</tbody></table>
+<h2 id="Comparable-Interface"><a href="#Comparable-Interface" class="headerlink" title="Comparable Interface"></a>Comparable Interface</h2><p>For example, Item implements Comparable and compare their implementation class price.</p>
+<p>The <code>compareTo</code> method used to compare <code>this</code> object with specific incoming object <code>o</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Item</span>&gt; </span>&#123;</span><br><span class="line">		<span class="keyword">private</span> String name;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> Double price;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Double <span class="title">getPrice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;	</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Item o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getPrice().compareTo(o.getPrice());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>compareTo</code> method’s detail info</p>
+<ul>
+<li>param: o the object to be compared.</li>
+<li>return: a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.</li>
+<li>throws: NullPointerException if the specified object is null</li>
+<li>throws: ClassCastException if the specified object’s type prevents it from being compared to this object.</li>
+</ul>
+<p>It is strongly recommended, but <i>not</i> strictly required that<br><tt>(x.compareTo(y)==0) == (x.equals(y))</tt>.  Generally speaking, any<br>class that implements the <tt>Comparable</tt> interface and violates<br>this condition should clearly indicate this fact.  The recommended language is “Note: this class has a natural ordering that is inconsistent with equals.”</p>
+<p>When you want to sort a list of <code>Item</code>,  you need just one line. Because <code>Collections</code> will automatedly sort as the rule of the <code>compareTo</code> method.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(items);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Extra-Tips"><a href="#Extra-Tips" class="headerlink" title="Extra Tips"></a>Extra Tips</h3><p>If your comparing property is not an object, just a basic data type, we can not use the<code>compareTo</code> method to compare two data. Using mathematics symbol <code>-</code> will work.</p>
+<h2 id="Comparator-Interface"><a href="#Comparator-Interface" class="headerlink" title="Comparator Interface"></a>Comparator Interface</h2><p>For example, customize a class to implements a <code>Comparator</code> and put this comparator in a sort method. Provided 2 methods to implement <code>Comparator</code>. One is to define a new class, the other is to create an <code>anonymous inner class</code>. </p>
+<p>There is only one method that must have to implement - <code>compare</code>. This method is used to compare to Object <code>o1</code>, <code>o2</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span> </span>&#123;</span><br><span class="line">  	<span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Double price;</span><br><span class="line">    </span><br><span class="line">  	<span class="function"><span class="keyword">public</span> <span class="title">Item</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Item</span><span class="params">(Double price)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  	<span class="function"><span class="keyword">public</span> Double <span class="title">getPrice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * custom comparator class</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Item</span>&gt;</span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Item o1, Item o2)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> o1.getPrice().compareTo(o2.getPrice());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Item&gt; items = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        items.add(<span class="keyword">new</span> Item(<span class="number">2.0</span>));</span><br><span class="line">        items.add(<span class="keyword">new</span> Item(<span class="number">1.0</span>));</span><br><span class="line">        items.add(<span class="keyword">new</span> Item(<span class="number">3.0</span>));</span><br><span class="line">      	<span class="comment">// method 1</span></span><br><span class="line">        Collections.sort(items, <span class="keyword">new</span> MyComparator());</span><br><span class="line">      	<span class="comment">// method 2</span></span><br><span class="line">      	Collections.sort(items, <span class="keyword">new</span> Comparator&lt;Item&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Item o1, Item o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o1.getPrice() &gt; o2.getPrice() ? <span class="number">1</span> : o1.getPrice().equals(o2.getPrice()) ? <span class="number">0</span> : -<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      </span><br><span class="line">        System.out.println(JsonUtils.toJson(items));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>the method <code>compare</code>‘s detail info</p>
+<ul>
+<li>param: o1 the first object to be compared.</li>
+<li>param: o2 the second object to be compared.</li>
+<li>return: a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.</li>
+<li>throws: NullPointerException if an argument is null and this<br>comparator does not permit null arguments.</li>
+<li>throws: ClassCastException if the arguments’ types prevent them from being compared by this comparator.</li>
+</ul>
+<h2 id="Arrays-amp-Collections-sort"><a href="#Arrays-amp-Collections-sort" class="headerlink" title="Arrays &amp; Collections sort"></a>Arrays &amp; Collections sort</h2><table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Comparisons</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Arrays.sort(T[], Comparator&lt;? super T&gt; c)</td>
+<td>int[], double[], byte[]…</td>
+</tr>
+<tr>
+<td>Collections.sort(List&lt;T&gt;, Comparator&lt;? super T&gt; c)</td>
+<td>List&lt;Integer&gt;, List&lt;Double&gt;, List&lt;Byte&gt;…</td>
+</tr>
+</tbody></table>
+<h3 id="Sort-method’s-rule"><a href="#Sort-method’s-rule" class="headerlink" title="Sort method’s rule"></a>Sort method’s rule</h3><p>o1 is the left number, o2 is the next right number</p>
+<ul>
+<li>when comparator return &lt;= 0, o1, o2 object don’t exchange</li>
+<li>when comparator return &gt; 1, o1, o2 object exchange</li>
+</ul>
+<h3 id="Wrapper-Class-Code-Example"><a href="#Wrapper-Class-Code-Example" class="headerlink" title="Wrapper Class Code Example"></a>Wrapper Class Code Example</h3><p>We can customize a comparator class to implement <code>Comparator Interface</code> and put it in <code>sort</code> method, but we have a more concise method to achieve it by using <code>Lambda Expressions</code> or <code>Comparator.comparingDouble()</code>, <code>Comparator.comparing()</code> and so on.</p>
+<p>The following code example shows <code>wrapper data type</code>‘s natural and reverse sort method, you just need to pick your favorite one.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">       <span class="comment">// for natural order - small to big</span></span><br><span class="line">       ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">       list.add(<span class="number">1</span>);</span><br><span class="line">       list.add(<span class="number">2</span>);</span><br><span class="line">       list.add(<span class="number">3</span>);</span><br><span class="line">  			<span class="comment">// method 1</span></span><br><span class="line">       Collections.sort(list);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// for reverse order</span></span><br><span class="line">       <span class="comment">// method 1. Use Lambda Expressions</span></span><br><span class="line">       Collections.sort(list, (a, b) -&gt; Integer.compare(b, a));</span><br><span class="line">       <span class="comment">// method 2. Use Comparator.comparing</span></span><br><span class="line">       Collections.sort(list, Comparator.comparing((a) -&gt; -a));</span><br><span class="line">       <span class="comment">// method 3. user reverse</span></span><br><span class="line">       Collections.sort(list, Comparator.reverseOrder());</span><br><span class="line">  </span><br><span class="line">       <span class="comment">// method 4. Use Comparator.comparingInt</span></span><br><span class="line">       Collections.sort(list, Comparator.comparingInt(Integer::intValue).reversed());</span><br><span class="line">       </span><br><span class="line">       System.out.println(JsonUtils.toJson(list));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-Code-Example"><a href="#Object-Code-Example" class="headerlink" title="Object Code Example"></a>Object Code Example</h3><p>The following code example shows <code>complex data type</code>‘s natural and reverse sort methods, you just need to pick you favorite one.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Item&gt; items = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        items.add(<span class="keyword">new</span> Item(<span class="number">2.0</span>));</span><br><span class="line">        items.add(<span class="keyword">new</span> Item(<span class="number">1.0</span>));</span><br><span class="line">        items.add(<span class="keyword">new</span> Item(<span class="number">3.0</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// for items&#x27; natural order</span></span><br><span class="line">        <span class="comment">// methode 1. Lambda Expressions</span></span><br><span class="line">        Collections.sort(items, (a, b) -&gt; Double.compare(a.getPrice(), b.getPrice()));</span><br><span class="line">        <span class="comment">// methode 2. Comparator.comparing</span></span><br><span class="line">        Collections.sort(items, Comparator.comparing((a) -&gt; a.getPrice()));</span><br><span class="line">        <span class="comment">// method 3. Comparator.comparingDouble</span></span><br><span class="line">        Collections.sort(items, Comparator.comparingDouble(Item::getPrice));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// for items&#x27; reverse order</span></span><br><span class="line">        <span class="comment">// method 1. Lambda Expressions</span></span><br><span class="line">        Collections.sort(items, (a, b) -&gt; Double.compare(b.getPrice(), a.getPrice()));</span><br><span class="line">        <span class="comment">// method 2. Comparator.comparing</span></span><br><span class="line">        Collections.sort(items, Comparator.comparing((a) -&gt; -a.getPrice()));</span><br><span class="line">        <span class="comment">// method 3. Comparator.comparingDouble</span></span><br><span class="line">        Collections.sort(items, Comparator.comparingDouble(Item::getPrice).reversed());</span><br><span class="line"></span><br><span class="line">        System.out.println(JsonUtils.toJson(items));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Author’s-Message"><a href="#Author’s-Message" class="headerlink" title="Author’s Message"></a>Author’s Message</h2><p>Recently I practiced algorithms on LeetCode. Under some conditions, I have to sort Array or List. I was confused by the different kinds of comparison methods. So I sorted out the above knowledge points.</p>
+<h2 id="Reference-Links"><a href="#Reference-Links" class="headerlink" title="Reference Links"></a>Reference Links</h2><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html">https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html">https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.baeldung.com/java-8-comparator-comparing">https://www.baeldung.com/java-8-comparator-comparing</a></p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/Comparable/"># Comparable</a>
+                    
+                        <a href="/tags/Comparator/"># Comparator</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2021/08/15/Floyd%E2%80%98s%20cycle-find%20algorithm/">快慢指针算法/龟兔算法/Floyd's cycle-find algorithm</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Estella | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
