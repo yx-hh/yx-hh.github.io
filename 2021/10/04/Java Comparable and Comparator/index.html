@@ -218,7 +218,7 @@
 <td>int compare(T o1, T o2);</td>
 </tr>
 </tbody></table>
-<h2 id="Comparable-Interface"><a href="#Comparable-Interface" class="headerlink" title="Comparable Interface"></a>Comparable Interface</h2><p>For example, Item implements Comparable and compare their implementation class price.</p>
+<h2 id="Comparable-Interface"><a href="#Comparable-Interface" class="headerlink" title="Comparable Interface"></a>Comparable Interface</h2><p>For example, Item implements <code>Comparable</code> and compare their implementation class’s price.</p>
 <p>The <code>compareTo</code> method used to compare <code>this</code> object with specific incoming object <code>o</code>.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Item</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Item</span>&gt; </span>&#123;</span><br><span class="line">		<span class="keyword">private</span> String name;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> Double price;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Double <span class="title">getPrice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> price;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">  	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;	</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Item o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getPrice().compareTo(o.getPrice());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -243,7 +243,7 @@
 <li>param: o1 the first object to be compared.</li>
 <li>param: o2 the second object to be compared.</li>
 <li>return: a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.</li>
-<li>throws: NullPointerException if an argument is null and this<br>comparator does not permit null arguments.</li>
+<li>throws: NullPointerException if an argument is null and this comparator does not permit null arguments.</li>
 <li>throws: ClassCastException if the arguments’ types prevent them from being compared by this comparator.</li>
 </ul>
 <h2 id="Arrays-amp-Collections-sort"><a href="#Arrays-amp-Collections-sort" class="headerlink" title="Arrays &amp; Collections sort"></a>Arrays &amp; Collections sort</h2><table>
@@ -254,8 +254,12 @@
 </tr>
 </thead>
 <tbody><tr>
-<td>Arrays.sort(T[], Comparator&lt;? super T&gt; c)</td>
+<td>Arrays.sort(int[].., fromIndex, endIndex)</td>
 <td>int[], double[], byte[]…</td>
+</tr>
+<tr>
+<td>Arrays.sort(T[], Comparator&lt;? super T&gt; c)</td>
+<td>Integer[], Double[], Byte[]…</td>
 </tr>
 <tr>
 <td>Collections.sort(List&lt;T&gt;, Comparator&lt;? super T&gt; c)</td>
@@ -267,6 +271,11 @@
 <li>when comparator return &lt;= 0, o1, o2 object don’t exchange</li>
 <li>when comparator return &gt; 1, o1, o2 object exchange</li>
 </ul>
+<h3 id="Basic-Data-Type-Code-Example"><a href="#Basic-Data-Type-Code-Example" class="headerlink" title="Basic Data Type Code Example"></a>Basic Data Type Code Example</h3><p>Java API -<code>Arrays.sort()</code> provide sort mthod for basic data type such as <code>int[], double[], byte[]...</code> in <code>an increasing order</code> and this is the only one sort methode provide for basic data type .If you want to change the original order, you should use wrapper class. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] a = &#123;<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>&#125;;</span><br><span class="line">        Arrays.sort(a, <span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length; i ++) &#123;</span><br><span class="line">            System.out.print(a[i] + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// wrapper class</span></span><br><span class="line">        Integer[] b = &#123;<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>&#125;;</span><br><span class="line">        Arrays.sort(b, Comparator.reverseOrder());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h3 id="Wrapper-Class-Code-Example"><a href="#Wrapper-Class-Code-Example" class="headerlink" title="Wrapper Class Code Example"></a>Wrapper Class Code Example</h3><p>We can customize a comparator class to implement <code>Comparator Interface</code> and put it in <code>sort</code> method, but we have a more concise method to achieve it by using <code>Lambda Expressions</code> or <code>Comparator.comparingDouble()</code>, <code>Comparator.comparing()</code> and so on.</p>
 <p>The following code example shows <code>wrapper data type</code>‘s natural and reverse sort method, you just need to pick your favorite one.</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">     </span><br><span class="line">       <span class="comment">// for natural order - small to big</span></span><br><span class="line">       ArrayList&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">       list.add(<span class="number">1</span>);</span><br><span class="line">       list.add(<span class="number">2</span>);</span><br><span class="line">       list.add(<span class="number">3</span>);</span><br><span class="line">  			<span class="comment">// method 1</span></span><br><span class="line">       Collections.sort(list);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// for reverse order</span></span><br><span class="line">       <span class="comment">// method 1. Use Lambda Expressions</span></span><br><span class="line">       Collections.sort(list, (a, b) -&gt; Integer.compare(b, a));</span><br><span class="line">       <span class="comment">// method 2. Use Comparator.comparing</span></span><br><span class="line">       Collections.sort(list, Comparator.comparing((a) -&gt; -a));</span><br><span class="line">       <span class="comment">// method 3. user reverse</span></span><br><span class="line">       Collections.sort(list, Comparator.reverseOrder());</span><br><span class="line">  </span><br><span class="line">       <span class="comment">// method 4. Use Comparator.comparingInt</span></span><br><span class="line">       Collections.sort(list, Comparator.comparingInt(Integer::intValue).reversed());</span><br><span class="line">       </span><br><span class="line">       System.out.println(JsonUtils.toJson(list));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -304,6 +313,8 @@
             </div>
         </section>
         <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/11/04/Recursion%20Divid&Conquer%20Code%20Template/">Recursion, Divide & Conquer Code Template</a>
             
             
             <a class="next" rel="next" href="/2021/10/04/Github%20SSL_ERROR_SYSCALL/">GitHub--unable to access/SSL_ERROR_SYSCALL</a>

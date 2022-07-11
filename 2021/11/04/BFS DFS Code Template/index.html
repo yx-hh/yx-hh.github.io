@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Estella">
+
+
+
+
+
+<title>BFS DFS Code Template | Estella</title>
+
+
+
+    <link rel="icon" href="/image/flower.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+<meta name="generator" content="Hexo 5.1.0"></head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Estella&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Estella&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/category">Categories</a>
+                
+                    <a class="menu-item" href="/tag">Tags</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">BFS DFS Code Template</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Estella</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">November 4, 2021&nbsp;&nbsp;17:12:19</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>![image-20211104173609848](/Users/huangyuxin/Library/Application Support/typora-user-images/image-20211104173609848.png)</p>
+<h2 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h2><p>Simple Version</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(Node node, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">    Queue&lt;Node&gt; queue;</span><br><span class="line">  </span><br><span class="line">  	q.add(start);</span><br><span class="line">    visited.add(start)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(!q.isEmpty())&#123;</span><br><span class="line">      node = queue.pop();</span><br><span class="line">      visited.add(node);</span><br><span class="line">      </span><br><span class="line">      process(node);</span><br><span class="line">      nodes = generate_ralated_nodes(node);</span><br><span class="line">      queue.push(nodes);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// other process work</span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Detailed Version</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算从起点 start 到终点 target 的最近距离</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BFS</span><span class="params">(Node start, Node target)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 核心数据结构</span></span><br><span class="line">    Queue&lt;Node&gt; q; </span><br><span class="line">  	<span class="comment">// 避免走回头路</span></span><br><span class="line">    Set&lt;Node&gt; visited; </span><br><span class="line">    <span class="comment">// 将起点加入队列</span></span><br><span class="line">    q.offer(start); </span><br><span class="line">    visited.add(start);</span><br><span class="line">    <span class="comment">// 记录扩散的步数</span></span><br><span class="line">    <span class="keyword">int</span> step = <span class="number">0</span>; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (q not empty) &#123;</span><br><span class="line">        <span class="keyword">int</span> sz = q.size();</span><br><span class="line">        <span class="comment">/* 将当前队列中的所有节点向四周扩散 */</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; sz; i++) &#123;</span><br><span class="line">            Node cur = q.poll();</span><br><span class="line">            <span class="comment">/* 划重点：这里判断是否到达终点 */</span></span><br><span class="line">            <span class="keyword">if</span> (cur is target)</span><br><span class="line">                <span class="keyword">return</span> step;</span><br><span class="line">            <span class="comment">/* 将 cur 的相邻节点加入队列 */</span></span><br><span class="line">            <span class="keyword">for</span> (Node x : cur.adj())</span><br><span class="line">                <span class="keyword">if</span> (x not in visited) &#123;</span><br><span class="line">                    q.offer(x);</span><br><span class="line">                    visited.add(x);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/* 划重点：更新步数在这里 */</span></span><br><span class="line">        step++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>![image-20211105024409035](/Users/huangyuxin/Library/Application Support/typora-user-images/image-20211105024409035.png)</p>
+<p>For Example</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123;</span><br><span class="line">       List&lt;List&lt;Integer&gt;&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">       <span class="keyword">if</span>(root == <span class="keyword">null</span>) <span class="keyword">return</span> list;</span><br><span class="line">       Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;TreeNode&gt;();</span><br><span class="line">       queue.add(root);</span><br><span class="line">       <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">           <span class="keyword">int</span> size = queue.size();</span><br><span class="line">           List&lt;Integer&gt; sublist = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">           <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; size; i++)&#123;</span><br><span class="line">               TreeNode node = queue.poll();</span><br><span class="line">               <span class="keyword">if</span>(<span class="keyword">null</span> != node)&#123;</span><br><span class="line">                   sublist.add(node.val);</span><br><span class="line">                   queue.add(node.left);</span><br><span class="line">                   queue.add(node.right);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">if</span>(!sublist.isEmpty())&#123;</span><br><span class="line">               list.add(sublist);</span><br><span class="line">           &#125;       </span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> list;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">visited = set()</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(node, visited)</span></span>&#123;</span><br><span class="line">  visited.add(node);</span><br><span class="line">  <span class="comment">// process current node</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">for</span> next_node in node.children()&#123;</span><br><span class="line">    <span class="keyword">if</span>(not next_node in visited)&#123;</span><br><span class="line">      dfs(next_node, visited)</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">  &#125;   </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Return true if there is a path from cur to target.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">DFS</span><span class="params">(Node cur, Node target, Set&lt;Node&gt; visited)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span> <span class="keyword">if</span> cur is target;</span><br><span class="line">    <span class="keyword">for</span> (next : each neighbor of cur) &#123;</span><br><span class="line">        <span class="keyword">if</span> (next is not in visited) &#123;</span><br><span class="line">            add next to visted;</span><br><span class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">true</span> <span class="keyword">if</span> <span class="title">DFS</span><span class="params">(next, target, visited)</span> </span>== <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>DFS非递归写法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">boolean DFS(Node cur)&#123;</span><br><span class="line">	 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Reference-Link"><a href="#Reference-Link" class="headerlink" title="Reference Link"></a>Reference Link</h2><p><a target="_blank" rel="noopener" href="https://learnku.com/articles/44631">五大算法代码模板（DFS 递归非递归都算上，是六个</a>）</p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2021/12/02/Binary%20Search/">Binary Search Template</a>
+            
+            
+            <a class="next" rel="next" href="/2021/11/04/Greedy%20Algorithm/"></a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Estella | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
