@@ -64,9 +64,15 @@
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
+    position: relative;
     display: flex; flex-direction: column; justify-content: center;
     padding: 8rem 2.5rem 4rem;
     max-width: 960px; margin: 0 auto;
+  }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; }
+  .hero-right {
+    position: absolute; right: -60px; top: 50%; transform: translateY(-50%);
+    pointer-events: none;
   }
   .hero-tag {
     font-family: var(--mono); font-size: 12px; color: var(--accent2);
@@ -204,13 +210,13 @@
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  .hero > * { animation: fadeUp .7s ease both; }
-  .hero > *:nth-child(1) { animation-delay: .1s; }
-  .hero > *:nth-child(2) { animation-delay: .2s; }
-  .hero > *:nth-child(3) { animation-delay: .3s; }
-  .hero > *:nth-child(4) { animation-delay: .4s; }
-  .hero > *:nth-child(5) { animation-delay: .5s; }
-  .hero > *:nth-child(6) { animation-delay: .6s; }
+  .hero-left > * { animation: fadeUp .7s ease both; }
+  .hero-left > *:nth-child(1) { animation-delay: .1s; }
+  .hero-left > *:nth-child(2) { animation-delay: .2s; }
+  .hero-left > *:nth-child(3) { animation-delay: .3s; }
+  .hero-left > *:nth-child(4) { animation-delay: .4s; }
+  .hero-left > *:nth-child(5) { animation-delay: .5s; }
+  .hero-right { animation: fadeUp .9s ease both; animation-delay: .4s; }
 
   /* ── BLOG ── */
   .blog-grid {
@@ -256,6 +262,9 @@
   .blog-more a:hover { color: var(--text); border-color: var(--text); }
 
   /* ── RESPONSIVE ── */
+  @media (max-width: 780px) {
+    .hero-right { display: none; }
+  }
   @media (max-width: 640px) {
     nav { padding: 0 1.25rem; }
     .nav-links { display: none; }
@@ -283,23 +292,282 @@
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-tag">Senior Software Engineer &nbsp;·&nbsp; Open to Opportunities</div>
-  <h1>Yuxin <em>(Estella)</em><br>Huang</h1>
-  <p class="hero-sub">
-    8+ years building large-scale backend systems in Java. From distributed payment platforms at Finfare
-    to open-source work at Meta, I architect systems that are reliable, observable, and built to scale.
-  </p>
-  <div class="hero-loc">
-    <span>📍 Irvine, CA</span>
-    <span>·</span>
-    <span>UCI Master of Software Engineering</span>
-    <span>·</span>
-    <span>GPA 3.9 / 4.0</span>
+  <div class="hero-left">
+    <div class="hero-tag">Senior Software Engineer &nbsp;·&nbsp; Open to Opportunities</div>
+    <h1>Yuxin <em>(Estella)</em><br>Huang</h1>
+    <p class="hero-sub">
+      8+ years building large-scale backend systems in Java. From distributed payment platforms at Finfare
+      to open-source work at Meta, I architect systems that are reliable, observable, and built to scale.
+    </p>
+    <div class="hero-loc">
+      <span>📍 Irvine, CA</span>
+      <span>·</span>
+      <span>UCI Master of Software Engineering</span>
+      <span>·</span>
+      <span>GPA 3.9 / 4.0</span>
+    </div>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">View Projects</button>
+      <button class="btn-ghost" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Get In Touch</button>
+    </div>
   </div>
-  <div class="hero-btns">
-    <button class="btn-primary" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">View Projects</button>
-    <button class="btn-ghost" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Get In Touch</button>
+
+  <div class="hero-right">
+    <svg id="desk-svg" viewBox="0 0 360 360" width="360" height="360" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+      <defs>
+        <clipPath id="sc"><rect x="28" y="18" width="284" height="188" rx="4"/></clipPath>
+        <style>
+          @keyframes blink-cur { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+          @keyframes key-press { 0%,100%{transform:translateY(0)} 50%{transform:translateY(2px)} }
+          @keyframes float-a { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+          @keyframes float-b { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+          @keyframes float-c { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+          .blink-cur { animation: blink-cur .85s step-end infinite; }
+          .fa { animation: float-a 3.2s ease-in-out infinite; }
+          .fb { animation: float-b 4.1s ease-in-out infinite 0.9s; }
+          .fc { animation: float-c 3.6s ease-in-out infinite 0.5s; }
+        </style>
+      </defs>
+
+      <!-- desk shadow -->
+      <ellipse cx="180" cy="355" rx="130" ry="9" fill="rgba(200,245,71,0.04)"/>
+
+      <!-- desk surface -->
+      <rect x="30" y="300" width="300" height="14" rx="4" fill="#1a1a1a" stroke="#252525" stroke-width="1"/>
+      <!-- desk legs -->
+      <rect x="58"  y="314" width="12" height="38" rx="2" fill="#161616"/>
+      <rect x="290" y="314" width="12" height="38" rx="2" fill="#161616"/>
+
+      <!-- monitor stand -->
+      <rect x="156" y="255" width="32" height="47" rx="2" fill="#1c1c1c" stroke="#252525" stroke-width="1"/>
+      <rect x="130" y="298" width="84" height="6"  rx="3" fill="#222" stroke="#2a2a2a" stroke-width="1"/>
+
+      <!-- monitor bezel -->
+      <rect x="10" y="6" width="320" height="252" rx="10" fill="#141414" stroke="#262626" stroke-width="1.5"/>
+      <!-- screen -->
+      <rect x="28" y="18" width="284" height="188" rx="4" fill="#0c0c0c"/>
+
+      <!-- traffic lights -->
+      <circle cx="44" cy="30" r="4" fill="#ff5f57" opacity="0.75"/>
+      <circle cx="56" cy="30" r="4" fill="#febc2e" opacity="0.75"/>
+      <circle cx="68" cy="30" r="4" fill="#28c840" opacity="0.75"/>
+
+      <!-- tab -->
+      <rect x="82" y="22" width="80" height="14" rx="3" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="0.5"/>
+      <text x="89" y="32" font-family="monospace" font-size="7" fill="#666">diary.txt</text>
+
+      <!-- gutter -->
+      <rect x="28" y="38" width="26" height="168" fill="#0a0a0a"/>
+      <!-- code bg -->
+      <rect x="54" y="38" width="258" height="168" fill="#0d0d0d"/>
+
+      <!-- clipped screen content -->
+      <g clip-path="url(#sc)">
+        <g id="txt-group"></g>
+        <rect id="hl-bar" x="28" y="38" width="284" height="13" fill="rgba(200,245,71,0.07)"/>
+        <rect class="blink-cur" id="txt-cur" x="60" y="40" width="5" height="10" fill="#c8f547"/>
+      </g>
+
+      <!-- webcam -->
+      <circle cx="170" cy="13" r="2.5" fill="#1e1e1e"/>
+      <circle cx="170" cy="13" r="1"   fill="#2a2a2a"/>
+
+      <!-- ── KEYBOARD ── -->
+      <!-- keyboard body -->
+      <rect x="72" y="306" width="216" height="24" rx="4" fill="#1a1a1a" stroke="#2d2d2d" stroke-width="1"/>
+
+      <!-- key rows — row 1 -->
+      <g id="keys-row1" fill="#242424">
+        <rect x="78"  y="309" width="13" height="7" rx="1.5"/>
+        <rect x="93"  y="309" width="13" height="7" rx="1.5"/>
+        <rect x="108" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="123" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="138" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="153" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="168" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="183" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="198" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="213" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="228" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="243" y="309" width="13" height="7" rx="1.5"/>
+        <rect x="258" y="309" width="17" height="7" rx="1.5"/>
+      </g>
+      <!-- key row 2 -->
+      <g id="keys-row2" fill="#242424">
+        <rect x="78"  y="319" width="20" height="7" rx="1.5"/>
+        <rect x="101" y="319" width="13" height="7" rx="1.5"/>
+        <rect x="116" y="319" width="13" height="7" rx="1.5"/>
+        <rect x="131" y="319" width="13" height="7" rx="1.5"/>
+        <rect x="146" y="319" width="13" height="7" rx="1.5"/>
+        <rect x="161" y="319" width="13" height="7" rx="1.5"/>
+        <rect x="176" y="319" width="13" height="7" rx="1.5"/>
+        <rect x="191" y="319" width="13" height="7" rx="1.5"/>
+        <rect x="206" y="319" width="13" height="7" rx="1.5"/>
+        <rect x="221" y="319" width="13" height="7" rx="1.5"/>
+        <rect x="236" y="319" width="39" height="7" rx="1.5"/>
+      </g>
+      <!-- spacebar -->
+      <rect id="spacebar" x="118" y="319" width="124" height="7" rx="2" fill="rgba(200,245,71,0.45)"/>
+
+      <!-- floating mood badges -->
+      <g class="fa" opacity="0.6">
+        <rect x="-8" y="80" width="64" height="18" rx="3" fill="#141414" stroke="rgba(200,245,71,0.4)" stroke-width="1"/>
+        <text x="-2" y="93" font-family="monospace" font-size="8" fill="#c8f547">🍵 tea #6</text>
+      </g>
+      <g class="fb" opacity="0.55">
+        <rect x="304" y="110" width="62" height="18" rx="3" fill="#141414" stroke="rgba(127,244,200,0.35)" stroke-width="1"/>
+        <text x="310" y="123" font-family="monospace" font-size="8" fill="#7ff4c8">lofi playlist</text>
+      </g>
+      <g class="fc" opacity="0.45">
+        <rect x="-4" y="175" width="66" height="18" rx="3" fill="#141414" stroke="rgba(200,245,71,0.2)" stroke-width="1"/>
+        <text x="2" y="188" font-family="monospace" font-size="8" fill="#888">3am shipping</text>
+      </g>
+
+    </svg>
+
+    <script>
+    (function(){
+      var lines = [
+        {t:'> today\'s goal:', c:'#7ff4c8'},
+        {t:'  ship 1 feature.', c:'#e0e0e0'},
+        {t:'  actually shipped 3.', c:'#c8f547'},
+        {t:'  classic.', c:'#888'},
+        {t:'', c:'#888'},
+        {t:'> current status:', c:'#7ff4c8'},
+        {t:'  tea:    ████████ 98%', c:'#c8f547'},
+        {t:'  focus:  ██████░░ 78%', c:'#7ff4c8'},
+        {t:'  sleep:  ██░░░░░░ 22%', c:'#f47f7f'},
+        {t:'', c:'#888'},
+        {t:'> things I love:', c:'#7ff4c8'},
+        {t:'  clean git history', c:'#e0e0e0'},
+        {t:'  0 unread emails', c:'#e0e0e0'},
+        {t:'  when tests pass', c:'#c8f547'},
+        {t:'  (all 3 of them)', c:'#888'},
+        {t:'', c:'#888'},
+        {t:'> unpopular opinions:', c:'#7ff4c8'},
+        {t:'  tabs > spaces', c:'#f47f7f'},
+        {t:'  dark mode always', c:'#c8f547'},
+        {t:'  naming vars well', c:'#e0e0e0'},
+        {t:'  is an art form', c:'#7ff4c8'},
+        {t:'', c:'#888'},
+        {t:'> note to self:', c:'#7ff4c8'},
+        {t:'  comments exist.', c:'#e0e0e0'},
+        {t:'  use them.', c:'#c8f547'},
+        {t:'  future-you says ty', c:'#888'},
+        {t:'', c:'#888'},
+        {t:'> currently reading:', c:'#7ff4c8'},
+        {t:'  Designing Data-', c:'#e0e0e0'},
+        {t:'  Intensive Apps', c:'#e0e0e0'},
+        {t:'  (page 1 for 3 mo)', c:'#888'},
+        {t:'', c:'#888'},
+        {t:'> fun fact:', c:'#7ff4c8'},
+        {t:'  I debugged a bug', c:'#e0e0e0'},
+        {t:'  for 2 days.', c:'#e0e0e0'},
+        {t:'  it was a typo.', c:'#f47f7f'},
+        {t:'  :)', c:'#c8f547'},
+      ];
+
+      var LINE_H   = 13;
+      var VISIBLE  = 12;
+      var TOP      = 40;
+      var X_NUM    = 50;
+      var X_CODE   = 58;
+      var CHAR_W   = 5.5;
+
+      var displayed = [];
+      var typing    = '';
+      var lineIdx   = 0;
+      var charIdx   = 0;
+      var lastType  = 0;
+      var lastKey   = 0;
+      var pauseUntil = 0;
+      var TYPE_DELAY = 62;
+      var KEY_PERIOD = 90;
+
+      var grp      = document.getElementById('txt-group');
+      var curEl    = document.getElementById('txt-cur');
+      var hlBar    = document.getElementById('hl-bar');
+      var spaceEl  = document.getElementById('spacebar');
+
+      var allKeys = [];
+      ['keys-row1','keys-row2'].forEach(function(id){
+        var g = document.getElementById(id);
+        if (g) Array.prototype.forEach.call(g.children, function(k){ allKeys.push(k); });
+      });
+
+      function renderLines() {
+        while (grp.firstChild) grp.removeChild(grp.firstChild);
+        var start    = Math.max(0, displayed.length + 1 - VISIBLE);
+        var visLines = displayed.slice(start).concat([{t: typing, c: lines[lineIdx % lines.length].c}]);
+
+        visLines.forEach(function(ln, i) {
+          var y = TOP + (i + 1) * LINE_H;
+          var num = document.createElementNS('http://www.w3.org/2000/svg','text');
+          num.setAttribute('x', X_NUM); num.setAttribute('y', y);
+          num.setAttribute('font-family','monospace'); num.setAttribute('font-size','9');
+          num.setAttribute('fill','#2e2e2e'); num.setAttribute('text-anchor','end');
+          num.textContent = start + i + 1;
+          grp.appendChild(num);
+
+          var code = document.createElementNS('http://www.w3.org/2000/svg','text');
+          code.setAttribute('x', X_CODE); code.setAttribute('y', y);
+          code.setAttribute('font-family','monospace'); code.setAttribute('font-size','9');
+          code.setAttribute('fill', ln.c);
+          code.textContent = ln.t;
+          grp.appendChild(code);
+        });
+
+        var curRow = Math.min(visLines.length - 1, VISIBLE - 1);
+        var curY   = TOP + (curRow + 1) * LINE_H;
+        hlBar.setAttribute('y', curY - 10);
+        curEl.setAttribute('x', X_CODE + typing.length * CHAR_W);
+        curEl.setAttribute('y', curY - 10);
+      }
+
+      function pressKey(el, dur) {
+        var orig = el.getAttribute('y');
+        el.setAttribute('y', parseFloat(orig) + 2);
+        el.setAttribute('fill', 'rgba(200,245,71,0.55)');
+        setTimeout(function(){
+          el.setAttribute('y', orig);
+          el.setAttribute('fill', '#242424');
+        }, dur || 80);
+      }
+
+      function tick(now) {
+        requestAnimationFrame(tick);
+
+        if (now - lastKey > KEY_PERIOD && typing.length > 0) {
+          lastKey = now;
+          var k = allKeys[Math.floor(Math.random() * allKeys.length)];
+          pressKey(k, 75);
+          if (Math.random() < 0.15) {
+            spaceEl.setAttribute('fill','rgba(200,245,71,0.85)');
+            setTimeout(function(){ spaceEl.setAttribute('fill','rgba(200,245,71,0.45)'); }, 70);
+          }
+        }
+
+        if (now < pauseUntil) return;
+        if (now - lastType < TYPE_DELAY) return;
+        lastType = now;
+
+        var full = lines[lineIdx % lines.length].t;
+        if (charIdx < full.length) {
+          typing += full[charIdx++];
+        } else {
+          displayed.push({t: full, c: lines[lineIdx % lines.length].c});
+          lineIdx++; charIdx = 0; typing = '';
+          pauseUntil = now + 180;
+        }
+        renderLines();
+      }
+
+      renderLines();
+      requestAnimationFrame(tick);
+    })();
+    </script>
   </div>
+
   <div class="stats">
     <div><div class="stat-num">8+</div><div class="stat-label">Years in Java</div></div>
     <div><div class="stat-num">3</div><div class="stat-label">Top-tier Companies</div></div>
