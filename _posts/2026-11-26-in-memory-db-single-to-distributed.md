@@ -1,6 +1,7 @@
 ---
 title: "Building an in-memory database: from one thread to many machines"
 description: "A key-value store with nested transactions, grown step by step: single-threaded Java, then thread-safe with optimistic concurrency, then what breaks when it's distributed."
+date: 2026-11-26 22:50:00 -0800
 tags: [System Design, Java, Concurrency]
 ---
 
@@ -8,7 +9,9 @@ This started as a one-hour coding exercise: a small Java project with a few clas
 
 This post builds it in three steps. Every code block here was compiled with JDK 21 and passes its tests (imports omitted for brevity).
 
-## The spec
+## The problem
+
+Build a key-value store with nested transactions:
 
 | Command | Behavior |
 |---|---|
@@ -353,7 +356,7 @@ public final class Session {
 }
 ```
 
-## Concurrency problems and how this design handles them
+## Trade-offs: concurrency problems and fixes
 
 | Problem | Cause | Fix here |
 |---|---|---|
@@ -370,7 +373,7 @@ public final class Session {
 
 The tests cover the cases from step 1 inside a session, plus no dirty reads, rollback not clobbering, conflict detection, and `count` seeing only the session's own pending writes. The stress test runs 8 threads × 2,000 read-increment-commit loops with retry on conflict. Across 10 runs the counter always ended at exactly 16,000. The number of conflict retries varied with scheduling, from 32 to 152 per run.
 
-### OCC vs. pessimistic locking
+### Optimistic vs. pessimistic locking
 
 | | Optimistic (this design) | Pessimistic (lock keys on read) |
 |---|---|---|
@@ -407,7 +410,7 @@ Each shard can run the step-2 design locally. The new problems live between the 
 
 The step-2 code sketches what most distributed databases converge on: buffer writes locally, validate at commit, publish atomically. Distribution doesn't change that idea. It makes "atomically" and "version" much more expensive to provide.
 
-## Takeaways
+## Principles I lean on
 
 - Pick the data structure from the access pattern: LIFO transactions mean a stack, and read-heavy traffic means the undo log in step 1.
 - Every invariant that spans structures needs a single mutation path in single-threaded code, and a single critical section in concurrent code.
