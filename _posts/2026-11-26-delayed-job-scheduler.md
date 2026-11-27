@@ -1,6 +1,7 @@
 ---
 title: "Designing a delayed-job scheduler: time wheel vs. Redis sorted sets"
 description: "Two good answers with different failure modes. Which one fits depends on scale and how much state you can afford to lose."
+date: 2026-11-26 09:00:00 -0800
 tags: [System Design, Scheduling]
 ---
 

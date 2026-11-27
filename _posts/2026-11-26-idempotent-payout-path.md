@@ -1,6 +1,7 @@
 ---
 title: "Idempotency belongs to the whole payout path, not one endpoint"
 description: "A retry can come from the user, the client, a worker, or a batch job. Every layer needs an answer."
+date: 2026-11-26 12:00:00 -0800
 tags: [Payments, Reliability]
 ---
 

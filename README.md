@@ -6,7 +6,7 @@
 2. 改好后放进 `_posts/`，文件名必须是 `YYYY-MM-DD-英文短标题.md`，例如 `_posts/2026-12-01-idempotent-payout-path.md`
 3. commit + push。GitHub Pages 约 1 分钟后自动生成，文章出现在 `/blog/`，首页 "Latest Writing" 显示最新 3 篇
 
-- `_drafts/` 里的文件不会发布，可以放未写完的稿子
+- `_drafts/` 里的文件不会在网站上发布，但仓库是公开的，GitHub 上仍能看到
 - 文章开头 `---` 之间的 front matter 必填 `title`；`description` 是列表页的一句话简介；`tags` 可选
 - 日期取自文件名，列表按日期倒序排列
 - 支持标准 Markdown：标题、列表、表格、代码块、引用、图片（图片放 `assets/img/`，用 `![说明](/assets/img/xx.png)` 引用）

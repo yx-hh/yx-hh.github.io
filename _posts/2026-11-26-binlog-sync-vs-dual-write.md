@@ -1,6 +1,7 @@
 ---
 title: "Why I prefer binlog-based sync over dual writes"
 description: "Keeping MySQL and Elasticsearch consistent without making every write path care about search."
+date: 2026-11-26 10:00:00 -0800
 tags: [Data Sync, Search]
 ---
 

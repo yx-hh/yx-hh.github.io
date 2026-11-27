@@ -1,6 +1,7 @@
 ---
 title: "Diff-based pipelines: faster builds without false confidence"
 description: "Skipping work is easy. Skipping only the work that's safe to skip is the hard part."
+date: 2026-11-26 11:00:00 -0800
 tags: [CI/CD, Developer Productivity]
 ---
 
