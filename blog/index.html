@@ -1,0 +1,26 @@
+---
+layout: base
+title: Blog
+description: Engineering notes on system design, distributed systems, and the trade-offs behind them.
+---
+<div class="page">
+  <h1 class="page-title">Engineering Notes</h1>
+  <p class="page-sub">How I reason about system design: how I frame the problem, the principles I rely on, the trade-offs I weighed, and what I'd do differently.</p>
+
+  {% if site.posts.size > 0 %}
+  <div class="post-list">
+    {% for post in site.posts %}
+    <a class="post-card" href="{{ post.url | relative_url }}">
+      <div class="post-date">{{ post.date | date: "%b %-d, %Y" }}</div>
+      <div class="post-card-title">{{ post.title }}</div>
+      <div class="post-card-desc">{{ post.description | default: post.excerpt | strip_html | truncate: 180 }}</div>
+      {% if post.tags.size > 0 %}
+      <div class="post-tags">{% for t in post.tags %}<span class="post-tag">{{ t }}</span>{% endfor %}</div>
+      {% endif %}
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="empty">First posts coming soon.</p>
+  {% endif %}
+</div>

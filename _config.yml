@@ -1,0 +1,22 @@
+title: Yuxin (Estella) Huang
+description: Backend engineer — payments, billing, distributed systems. Engineering notes on system design and trade-offs.
+url: https://yx-hh.github.io
+baseurl: ""
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    disable: true
+
+permalink: /blog/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - README.md
