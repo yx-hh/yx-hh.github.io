@@ -6,8 +6,9 @@ baseurl: ""
 markdown: kramdown
 kramdown:
   input: GFM
-  syntax_highlighter_opts:
-    disable: true
+  syntax_highlighter: rouge
+
+highlighter: rouge
 
 permalink: /blog/:title/
 

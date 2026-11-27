@@ -133,3 +133,21 @@
   .prose img { max-width: 100%; border: 1px solid var(--border); }
   .prose hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
   @media (max-width: 640px) { .page { padding: 6.5rem 1.25rem 3rem; } }
+
+  /* ── SYNTAX HIGHLIGHTING (Rouge tokens, site palette) ── */
+  .highlight .c, .highlight .c1, .highlight .cm, .highlight .cs, .highlight .cd, .highlight .ch, .highlight .cpf { color: #6f7a6a; font-style: italic; }
+  .highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv { color: #c8f547; }
+  .highlight .kt { color: #7ff4c8; }
+  .highlight .kc { color: #f2a65a; }
+  .highlight .s, .highlight .s1, .highlight .s2, .highlight .sb, .highlight .sc, .highlight .sd, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .ss { color: #e8c07d; }
+  .highlight .m, .highlight .mi, .highlight .mf, .highlight .mh, .highlight .mo, .highlight .il { color: #f2a65a; }
+  .highlight .nc, .highlight .nn, .highlight .ne { color: #7ff4c8; }
+  .highlight .nf, .highlight .fm { color: #8ecbff; }
+  .highlight .na, .highlight .nd { color: #c9a7ff; }
+  .highlight .nb, .highlight .bp { color: #7ff4c8; }
+  .highlight .o, .highlight .ow { color: #d0cdc6; }
+  .highlight .p { color: #a9a6a0; }
+  .highlight .nt { color: #c8f547; }
+  .highlight .err { color: #f47f7f; background: none; }
+  .highlight .gd { color: #f47f7f; }
+  .highlight .gi { color: #c8f547; }
