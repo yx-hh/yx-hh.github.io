@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" width="760" height="330" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13">
+  <rect width="760" height="330" fill="#161616"/>
+
+  <!-- lane labels -->
+  <text x="24" y="78" fill="#7ff4c8">Session A</text>
+  <text x="24" y="158" fill="#7ff4c8">Session B</text>
+  <text x="24" y="238" fill="#7ff4c8">shared data</text>
+  <line x1="130" y1="70" x2="740" y2="70" stroke="#2a2a2a"/>
+  <line x1="130" y1="150" x2="740" y2="150" stroke="#2a2a2a"/>
+  <line x1="130" y1="230" x2="740" y2="230" stroke="#2a2a2a"/>
+
+  <!-- time markers -->
+  <g fill="#8f8f8f" font-size="12" text-anchor="middle">
+    <text x="210" y="34">t1</text><text x="360" y="34">t2</text><text x="510" y="34">t3</text><text x="660" y="34">t4</text>
+  </g>
+  <g stroke="#2a2a2a" stroke-dasharray="3 4">
+    <line x1="210" y1="44" x2="210" y2="270"/><line x1="360" y1="44" x2="360" y2="270"/>
+    <line x1="510" y1="44" x2="510" y2="270"/><line x1="660" y1="44" x2="660" y2="270"/>
+  </g>
+
+  <!-- events -->
+  <rect x="150" y="54" width="120" height="34" fill="#1f1f1f" stroke="#3a3a3a"/>
+  <text x="210" y="76" fill="#f0ede6" text-anchor="middle">begin; x=1</text>
+  <text x="210" y="106" fill="#8f8f8f" font-size="11" text-anchor="middle">undo {x: null}</text>
+
+  <rect x="300" y="134" width="120" height="34" fill="#1f1f1f" stroke="#ff6b6b"/>
+  <text x="360" y="156" fill="#f0ede6" text-anchor="middle">get x → 1</text>
+  <text x="360" y="186" fill="#ff6b6b" font-size="11" text-anchor="middle">dirty read</text>
+
+  <rect x="450" y="134" width="120" height="34" fill="#1f1f1f" stroke="#3a3a3a"/>
+  <text x="510" y="156" fill="#f0ede6" text-anchor="middle">set x=2</text>
+  <text x="510" y="186" fill="#8f8f8f" font-size="11" text-anchor="middle">autocommit</text>
+
+  <rect x="600" y="54" width="120" height="34" fill="#1f1f1f" stroke="#3a3a3a"/>
+  <text x="660" y="76" fill="#f0ede6" text-anchor="middle">rollback</text>
+  <text x="660" y="106" fill="#8f8f8f" font-size="11" text-anchor="middle">restore x ← null</text>
+
+  <!-- data states -->
+  <g text-anchor="middle">
+    <text x="210" y="236" fill="#c8f547">x = 1</text>
+    <text x="360" y="236" fill="#c8f547">x = 1</text>
+    <text x="510" y="236" fill="#c8f547">x = 2</text>
+    <text x="660" y="236" fill="#ff6b6b">x = ∅</text>
+  </g>
+  <text x="660" y="258" fill="#ff6b6b" font-size="11" text-anchor="middle">B's committed write lost</text>
+
+  <text x="24" y="298" fill="#8f8f8f" font-size="12">Undo-log design: uncommitted writes live in the shared map,</text>
+  <text x="24" y="316" fill="#8f8f8f" font-size="12">and rollback overwrites whatever is there now.</text>
+</svg>
