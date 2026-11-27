@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% if page.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+<meta name="description" content="{{ page.description | default: site.description }}">
+<meta property="og:title" content="{{ page.title | default: site.title }}">
+<meta property="og:description" content="{{ page.description | default: site.description }}">
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="{{ '/flower.png' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="{{ '/' | relative_url }}">// YUXIN_HUANG.DEV</a>
+  <div class="nav-links">
+    <a href="{{ '/#skills' | relative_url }}">Skills</a>
+    <a href="{{ '/#projects' | relative_url }}">Projects</a>
+    <a href="{{ '/#experience' | relative_url }}">Experience</a>
+    <a href="{{ '/blog/' | relative_url }}">Blog</a>
+    <a href="{{ '/#contact' | relative_url }}">Contact</a>
+  </div>
+  <a class="nav-cta" href="mailto:yxh2023@gmail.com">Get in touch →</a>
+</nav>
+
+{{ content }}
+
+<footer>
+  <span>© {{ 'now' | date: '%Y' }} Yuxin (Estella) Huang</span>
+  <span><a href="{{ '/blog/' | relative_url }}">Blog</a> · <a href="https://github.com/yx-hh" target="_blank" rel="noopener">GitHub</a> · <a href="https://linkedin.com/in/yx-hh" target="_blank" rel="noopener">LinkedIn</a></span>
+</footer>
+
+</body>
+</html>
