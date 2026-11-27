@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" width="760" height="400" font-family="Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c8f547"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#7ff4c8"/></marker>
+  </defs>
+  <rect width="760" height="400" fill="#161616"/>
+
+  <!-- caller -->
+  <rect x="24" y="150" width="120" height="70" fill="#1f1f1f" stroke="#3a3a3a"/>
+  <text x="84" y="180" fill="#f0ede6" text-anchor="middle">set(k, v)</text>
+  <text x="84" y="200" fill="#f0ede6" text-anchor="middle">unset(k)</text>
+
+  <!-- Database boundary -->
+  <rect x="190" y="24" width="546" height="352" fill="none" stroke="#3a3a3a" stroke-dasharray="5 4"/>
+  <text x="206" y="46" fill="#8f8f8f">Database</text>
+
+  <!-- txStack -->
+  <text x="214" y="82" fill="#7ff4c8">txStack (Deque, top first)</text>
+  <rect x="214" y="94" width="240" height="56" fill="#1f1f1f" stroke="#7ff4c8"/>
+  <text x="228" y="117" fill="#f0ede6">T2  undoLog</text>
+  <text x="228" y="138" fill="#c8f547">{ a: 20, b: null }</text>
+  <rect x="214" y="156" width="240" height="56" fill="#1f1f1f" stroke="#3a3a3a"/>
+  <text x="228" y="179" fill="#f0ede6">T1  undoLog</text>
+  <text x="228" y="200" fill="#c8f547">{ a: 10 }</text>
+  <text x="214" y="234" fill="#8f8f8f" font-size="12">value BEFORE this level first</text>
+  <text x="214" y="250" fill="#8f8f8f" font-size="12">touched the key (null = absent)</text>
+
+  <!-- data -->
+  <text x="500" y="82" fill="#7ff4c8">data</text>
+  <rect x="500" y="94" width="210" height="56" fill="#1f1f1f" stroke="#3a3a3a"/>
+  <text x="514" y="127" fill="#c8f547">{ a: 30, b: 5 }</text>
+  <text x="500" y="182" fill="#7ff4c8">valueCounts</text>
+  <rect x="500" y="194" width="210" height="56" fill="#1f1f1f" stroke="#3a3a3a"/>
+  <text x="514" y="227" fill="#c8f547">{ "30": 1, "5": 1 }</text>
+
+  <!-- arrows from caller -->
+  <path d="M144,170 C175,160 180,130 210,124" fill="none" stroke="#c8f547" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="148" y="140" fill="#c8f547" font-size="12">1</text>
+  <path d="M144,205 C300,300 420,300 496,228" fill="none" stroke="#c8f547" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="300" y="296" fill="#c8f547" font-size="12">2  applyWrite: data + counts together</text>
+  <text x="18" y="244" fill="#8f8f8f" font-size="12">1 record undo first</text>
+  <text x="18" y="262" fill="#8f8f8f" font-size="12">2 then mutate</text>
+
+  <!-- rollback / commit -->
+  <line x1="214" y1="322" x2="710" y2="322" stroke="#3a3a3a"/>
+  <text x="214" y="346" fill="#7ff4c8">rollback</text>
+  <text x="300" y="346" fill="#f0ede6">pop T2, write its originals back through applyWrite</text>
+  <text x="214" y="366" fill="#7ff4c8">commit</text>
+  <text x="300" y="366" fill="#f0ede6">pop T2, merge into T1 (T1's older original wins)</text>
+</svg>
